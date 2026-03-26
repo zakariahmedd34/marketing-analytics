@@ -64,7 +64,7 @@ def main():
     print("[VISUALIZE] Saved summary_plot.png")
     print("[VISUALIZE] Handing off to cluster.py...")
 
-    subprocess.run(["python3", "cluster.py", dataset_path], check=True)
+    subprocess.run(["python", "cluster.py", dataset_path], check=True)
 
 
 if __name__ == "__main__":
