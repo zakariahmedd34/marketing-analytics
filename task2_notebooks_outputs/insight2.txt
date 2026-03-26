@@ -1,2 +1,0 @@
-Insight 2:
-The Senior age group has the highest average total number of purchases (14.23), while the Young age group has the lowest average total number of purchases (11.30). This suggests that customer age is related to purchase activity.

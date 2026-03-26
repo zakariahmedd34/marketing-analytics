@@ -1,2 +1,0 @@
-Insight 1:
-Customers in the High income group have the highest average total spending (1263.94), while customers in the Low income group have the lowest average total spending (96.44). This suggests that income level is strongly associated with customer spending behavior.
