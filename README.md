@@ -24,7 +24,7 @@ marketing-analytics/
 │   └── data_preprocessed.csv
 └── results/
 
-Requirements
+## Requirements
 
 The project uses the following Python libraries:
 
@@ -34,7 +34,6 @@ matplotlib
 seaborn
 scikit-learn
 scipy
-requests
 openpyxl
 Docker Setup
 Build Docker Image
@@ -43,20 +42,20 @@ Run Container
 docker run -it --name marketing_analytics_container marketing-analytics
 Run Pipeline
 
-Inside the container:
+## Inside the container:
 
 python analytics.py data/data_preprocessed.csv
 Export Results to Host
 
-After exiting the container:
-
+## After exiting the container:
 ./summary.sh
-Execution Flow
+## Execution Flow
 ingest.py → preprocess.py → analytics.py → visualize.py → cluster.py
+
 
 Each Python script calls the next stage and passes the latest dataset path as argument.
 
-Outputs
+## Outputs
 
 The pipeline generates the following outputs:
 
@@ -67,18 +66,11 @@ insight2.txt → insight about age and purchases
 insight3.txt → insight about response and engagement
 summary_plot.png → visualization summary
 clusters.txt → number of samples per cluster
-Example Insights
+
+## Example Insights
 Higher income customers spend significantly more than lower income customers.
 Senior customers tend to make more purchases than younger customers.
 High-spending customers show higher marketing response and engagement.
-Sample Results
-
-Include screenshots or sample outputs such as:
-
-summary_plot.png
-terminal output showing successful pipeline execution
-results/ folder contents
-
 
 
 GitHub Repository
