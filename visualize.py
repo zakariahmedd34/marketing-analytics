@@ -31,13 +31,13 @@ def main():
 
     fig, axes = plt.subplots(1, 3, figsize=(20, 6))
 
-    # Plot 1: Histogram
+    # Histogram
     sns.histplot(df["Total_Spending"], bins=30, kde=True, ax=axes[0])
     axes[0].set_title("Distribution of Total Spending")
     axes[0].set_xlabel("Total Spending")
     axes[0].set_ylabel("Count")
 
-    # Plot 2: Correlation Heatmap
+    # Correlation Heatmap
     corr_cols = [
         "Income",
         "Age",
@@ -51,7 +51,7 @@ def main():
     sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap="coolwarm", ax=axes[1])
     axes[1].set_title("Correlation Heatmap")
 
-    # Plot 3: Scatterplot
+    # Scatterplot
     sns.scatterplot(data=df, x="Income", y="Total_Spending", ax=axes[2])
     axes[2].set_title("Income vs Total Spending")
     axes[2].set_xlabel("Income")
@@ -64,7 +64,7 @@ def main():
     print("[VISUALIZE] Saved summary_plot.png")
     print("[VISUALIZE] Handing off to cluster.py...")
 
-    subprocess.run(["python", "cluster.py", dataset_path], check=True)
+    subprocess.run(["python3", "cluster.py", dataset_path], check=True)
 
 
 if __name__ == "__main__":

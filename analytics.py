@@ -130,7 +130,7 @@ def main():
 
         # Hand off to visualize.py
         print("[ANALYTICS] Handing off to visualize.py...")
-        subprocess.run(["python", "visualize.py", dataset_path], check=True)
+        subprocess.run(["python3", "visualize.py", dataset_path], check=True)
 
     except Exception as e:
         raise CustomException(str(e), sys)

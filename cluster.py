@@ -7,25 +7,56 @@ from sklearn.metrics import silhouette_score
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python cluster.py <preprocessed_dataset_path>")
+        print("Usage: python3 cluster.py <preprocessed_dataset_path>")
         sys.exit(1)
 
     dataset_path = sys.argv[1]
     print(f"[CLUSTER] Loading data from {dataset_path}...")
 
-    df = pd.read_csv(dataset_path, skiprows=1)
+    df = pd.read_csv(dataset_path)
 
-    # Use PCA columns if they exist
-    pca_cols = [col for col in df.columns if str(col).startswith("PC")]
+    # Try to detect PCA columns flexibly
+    pca_cols = [
+        col for col in df.columns
+        if str(col).strip().lower().startswith("pc")
+    ]
 
     if len(pca_cols) >= 2:
-        # Use first 3 PCs if available, otherwise all existing PCA columns
-        feature_cols = ["PC1", "PC2", "PC3"] if all(pc in pca_cols for pc in ["PC1", "PC2", "PC3"]) else pca_cols
+        # Prefer first 3 PCA columns if available
+        preferred = [col for col in ["PC1", "PC2", "PC3"] if col in df.columns]
+        feature_cols = preferred if len(preferred) >= 2 else pca_cols[:3]
         print(f"[CLUSTER] Using PCA columns: {feature_cols}")
     else:
-        raise ValueError("PCA columns not found in dataset. Expected columns like PC1, PC2, PC3.")
+        # Fallback to meaningful numeric customer features
+        candidate_cols = [
+            "Income",
+            "Age",
+            "Total_Spending",
+            "Total_Purchases",
+            "Average_Spend",
+            "Engagement",
+            "Spending_Ratio",
+            "Recency",
+            "Family_Size",
+        ]
 
-    X = df[feature_cols].dropna()
+        feature_cols = [col for col in candidate_cols if col in df.columns]
+
+        if len(feature_cols) < 2:
+            raise ValueError(
+                "Not enough valid columns found for clustering. "
+                "Need at least 2 numeric columns."
+            )
+
+        print(f"[CLUSTER] PCA columns not found. Using fallback features: {feature_cols}")
+
+    X = df[feature_cols].copy()
+
+    # Keep only numeric columns and drop missing rows
+    X = X.select_dtypes(include="number").dropna()
+
+    if X.shape[1] < 2:
+        raise ValueError("Need at least 2 numeric columns for clustering after filtering.")
 
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
