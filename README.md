@@ -78,9 +78,9 @@ docker run -it --name marketing_analytics_container marketing-analytics
 ```
 
 ### 3. Run the Pipeline inside Docker
-Once inside the running container, trigger the analytics steps:
+Once inside the running container, trigger the full pipeline starting with ingestion:
 ```bash
-python analytics.py data/data_preprocessed.csv
+python ingest.py data/marketing_campaign.xlsx
 ```
 *(Optionally, type `exit` to return to your host machine.)*
 
