@@ -109,7 +109,7 @@ From your host machine, run `summary.sh` to extract the generated insight files,
 **Insight 1**
 ```text
 Customers in the High income group have the highest average total spending (1263.94), while customers in the Low income group have the lowest average total spending (96.44). This suggests that income level is strongly associated with customer spending behavior.
-
+```
 Chosen k: 4
 Silhouette score: 0.3279
 
