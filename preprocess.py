@@ -198,7 +198,7 @@ def main():
 
         # Hand off to analytics.py
         print("[PREPROCESS] Handing off to analytics.py...")
-        subprocess.run(["python", "analytics.py", processed_path], check=True)
+        subprocess.run(["python3", "analytics.py", processed_path], check=True)
     except Exception as e:
         raise CustomException(str(e), sys)
 

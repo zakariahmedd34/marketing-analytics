@@ -23,7 +23,7 @@ def main():
 
         print(f"[INGEST] Saved raw data to {raw_path}")
 
-        subprocess.run(["python", "preprocess.py", "data_raw.csv"])
+        subprocess.run(["python3", "preprocess.py", "data_raw.csv"])
 
     except Exception as e:
         raise CustomException(str(e), sys)
