@@ -102,5 +102,22 @@ From your host machine, run `summary.sh` to extract the generated insight files,
 - `summary_plot.png` → The visualizations produced.
 - `clusters.txt` → Contains silhouette metrics and cluster sample counts.
 
+## Sample Outputs
+
+### Insight Example
+
+**Insight 1**
+```text
+Customers in the High income group have the highest average total spending (1263.94), while customers in the Low income group have the lowest average total spending (96.44). This suggests that income level is strongly associated with customer spending behavior.
+
+Chosen k: 4
+Silhouette score: 0.3279
+
+Cluster 0: 469 samples
+Cluster 1: 584 samples
+Cluster 2: 458 samples
+Cluster 3: 515 samples
+
+
 ## Docker Hub Image
 https://hub.docker.com/repository/docker/yasminradwan/marketing-analytics/general
