@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import silhouette_score
+import numpy as np
 
 
 def main():
@@ -15,19 +16,19 @@ def main():
 
     df = pd.read_csv(dataset_path)
 
-    # Try to detect PCA columns flexibly
+   
     pca_cols = [
         col for col in df.columns
         if str(col).strip().lower().startswith("pc")
     ]
 
     if len(pca_cols) >= 2:
-        # Prefer first 3 PCA columns if available
+        
         preferred = [col for col in ["PC1", "PC2", "PC3"] if col in df.columns]
         feature_cols = preferred if len(preferred) >= 2 else pca_cols[:3]
         print(f"[CLUSTER] Using PCA columns: {feature_cols}")
     else:
-        # Fallback to meaningful numeric customer features
+        
         candidate_cols = [
             "Income",
             "Age",
@@ -50,10 +51,10 @@ def main():
 
         print(f"[CLUSTER] PCA columns not found. Using fallback features: {feature_cols}")
 
-    X = df[feature_cols].copy()
 
-    # Keep only numeric columns and drop missing rows
-    X = X.select_dtypes(include="number").dropna()
+    X = df[feature_cols].copy()
+    X = X.select_dtypes(include="number")
+    X = X.replace([np.inf, -np.inf], np.nan).dropna()
 
     if X.shape[1] < 2:
         raise ValueError("Need at least 2 numeric columns for clustering after filtering.")
