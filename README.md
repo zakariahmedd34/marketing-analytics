@@ -1,12 +1,30 @@
-# Marketing Analytics Pipeline
+<div align="center">
+  <h1>Marketing Analytics Pipeline</h1>
+  <p><i>A full-fledged customer analytics machine learning pipeline using Python and Docker.</i></p>
 
-This project implements a full customer analytics machine learning pipeline using Python and Docker. It processes a marketing dataset to generate structural insights, visual summaries, and customer segmentations through K-Means clustering.
+  ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+  ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+  ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
+  ![Scikit-Learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
+</div>
+
+---
+
+## Problem Statement
+
+Understanding customer behavior is crucial for effective marketing. This project aims to analyze customer data to extract actionable business insights and segment the customer base. By automating the data ingestion, preprocessing, analytics, and clustering processes, this pipeline allows marketing teams to:
+
+- **Identify key drivers** of customer spending.
+- **Understand the relationship** between demographic factors (like age or income) and purchasing activity.
+- **Discover distinct customer segments** to enable targeted, personalized marketing campaigns.
 
 ## Team Members
 
-- Zakaria Ahmed
-- Salma Ghonim
-- Yasmin Radwan
+- **Zakaria Ahmed**
+- **Salma Ghonim**
+- **Yasmin Radwan**
+
+---
 
 ## Project Structure
 
@@ -14,12 +32,12 @@ This project implements a full customer analytics machine learning pipeline usin
 marketing-analytics/
 ├── Dockerfile
 ├── requirements.txt
-├── ingest.py
-├── preprocess.py
-├── analytics.py
-├── visualize.py
-├── cluster.py
-├── summary.sh
+├── ingest.py          # Loads raw data
+├── preprocess.py      # Cleans and engineers features
+├── analytics.py       # Extracts business insights
+├── visualize.py       # Generates data plots
+├── cluster.py         # Performs K-Means clustering
+├── summary.sh         # Bash script to export results from docker
 ├── README.md
 ├── .gitignore
 ├── data/
@@ -30,17 +48,19 @@ marketing-analytics/
     └── (Outputs generated here after running the pipeline)
 ```
 
+---
 
 ## Pipeline Execution Flow
-The pipeline follows a sequential execution model:
-1. `ingest.py` → Loads raw data and passes it to preprocessing.
-2. `preprocess.py` → Cleans the data, performs feature engineering, handles missing values, and saves `data_preprocessed.csv`.
-3. `analytics.py` → Extracts 3 key business insights based on spending, age, and engagement grouping, then saves text files.
-4. `visualize.py` → Generates correlational and distributional visualizations and saves `summary_plot.png`.
-5. `cluster.py` → Executes PCA clustering (K-Means), saves silhouette scores and clustered data.
 
+The pipeline follows a sequential, automated execution model where each stage triggers the next:
 
-Each Python script explicitly calls the next stage, meaning running the entrypoint triggers the entire downstream pipeline.
+1. **`ingest.py`** → Loads raw data and passes it to preprocessing.
+2. **`preprocess.py`** → Cleans the data, performs feature engineering, handles missing values, and saves `data_preprocessed.csv`.
+3. **`analytics.py`** → Extracts 3 key business insights based on spending, age, and engagement grouping, then saves text files.
+4. **`visualize.py`** → Generates correlational and distributional visualizations and saves `summary_plot.png`.
+5. **`cluster.py`** → Executes PCA clustering (K-Means), saves silhouette scores, and assigns clustered labels to the data.
+
+---
 
 ## How to Run Locally
 
@@ -50,23 +70,23 @@ First, install the necessary requirements:
 pip install -r requirements.txt
 ```
 
-To run the complete pipeline from scratch, starting with ingestion:
-
+**Option A:** Run the complete pipeline from scratch, starting with ingestion:
 ```bash
 python ingest.py data/marketing_campaign.xlsx
 ```
 
-Alternatively, to start from the preprocessed data (skipping ingestion and preprocessing):
-
+**Option B:** Start from the preprocessed data (skipping ingestion and preprocessing):
 ```bash
 python analytics.py data/data_preprocessed.csv
 ```
 
 Outputs will be generated in your current working directory.
 
+---
+
 ## How to Run using Docker
 
-A `Dockerfile` is provided so you can run the pipeline inside an isolated container.
+A `Dockerfile` is provided so you can run the pipeline inside an isolated environment.
 
 ### 1. Build the Docker Image
 ```bash
@@ -87,40 +107,44 @@ python ingest.py data/marketing_campaign.xlsx
 *(Optionally, type `exit` to return to your host machine.)*
 
 ### 4. Export Results
-From your host machine, run `summary.sh` to extract the generated insight files, plots, and clustered datasets into the locally synced `./results/` folder, which will then subsequently clean up the Docker container for you:
+From your host machine, run `summary.sh` to extract the generated insight files, plots, and clustered datasets into the locally synced `./results/` folder. This script will also clean up the Docker container for you:
 ```bash
 ./summary.sh
 ```
 
-## Expected Outputs in `results/`
+---
 
-- `data_preprocessed.csv` → The post-cleaning dataset.
-- `data_clustered.csv` → The dataset appended with K-Means cluster labels.
-- `insight1.txt` → Structural insights correlating income & spending.
-- `insight2.txt` → Structural insights correlating age & purchases.
-- `insight3.txt` → Structural insights correlating responses & engagement.
-- `summary_plot.png` → The visualizations produced.
-- `clusters.txt` → Contains silhouette metrics and cluster sample counts.
+## Results & Insights
 
-## Sample Outputs
+The pipeline executes comprehensive analysis and produces the following key findings, easily accessible in the `results/` folder.
 
-### Insight Example
+### 1. Visualizations
+![Summary Visualizations](results/summary_plot.png)
+*(Generated automatically by `visualize.py`)*
 
-**Insight 1**
-```text
-Customers in the High income group have the highest average total spending (1263.94), while customers in the Low income group have the lowest average total spending (96.44). This suggests that income level is strongly associated with customer spending behavior.
-```
-Chosen k: 4
-Silhouette score: 0.3279
+### 2. Structural Business Insights
 
-Cluster 0: 469 samples
-Cluster 1: 584 samples
-Cluster 2: 458 samples
-Cluster 3: 515 samples
+| Insight Area | Key Finding |
+| :--- | :--- |
+| **Income vs. Spending** | Customers in the **High income group** have the highest average total spending `(1263.94)`. This strongly suggests income level fundamentally drives customer spending behavior. |
+| **Age vs. Purchase Frequency** | The **Senior age group** engages in the most purchases `(14.23)` on average compared to younger groups. Customer age is a strong indicator of purchase activity. |
+| **Spending vs. Engagement** | The **High spending group** dominates response rates `(0.2530)` and engagement `(1.0200)`. Spending behavior is tightly coupled with marketing responsiveness. |
 
-## Github Repo Link
-https://github.com/zakariahmedd34/marketing-analytics
+### 3. Customer Segmentation (Clustering)
 
+A **K-Means** clustering approach was applied to segment customers, ensuring data-driven personalized marketing strategies.
 
-## Docker Hub Image
-https://hub.docker.com/repository/docker/yasminradwan/marketing-analytics/general
+- **Optimal Clusters (k):** `4`
+- **Silhouette Score:** `0.3279` *(indicating a reasonable clustering structure)*
+- **Cluster Breakdown:**
+  - **Cluster 0:** 469 members
+  - **Cluster 1:** 584 members
+  - **Cluster 2:** 458 members
+  - **Cluster 3:** 515 members
+
+---
+
+## Links
+
+- **Github Repo:** [zakariahmedd34/marketing-analytics](https://github.com/zakariahmedd34/marketing-analytics)
+- **Docker Hub Image:** [yasminradwan/marketing-analytics](https://hub.docker.com/repository/docker/yasminradwan/marketing-analytics/general)
