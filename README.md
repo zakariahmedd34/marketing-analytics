@@ -30,7 +30,7 @@ marketing-analytics/
     └── (Outputs generated here after running the pipeline)
 ```
 
-<<<<<<< HEAD
+
 ## Pipeline Execution Flow
 The pipeline follows a sequential execution model:
 1. `ingest.py` → Loads raw data and passes it to preprocessing.
@@ -38,9 +38,7 @@ The pipeline follows a sequential execution model:
 3. `analytics.py` → Extracts 3 key business insights based on spending, age, and engagement grouping, then saves text files.
 4. `visualize.py` → Generates correlational and distributional visualizations and saves `summary_plot.png`.
 5. `cluster.py` → Executes PCA clustering (K-Means), saves silhouette scores and clustered data.
-=======
-## Requirements
->>>>>>> 870066d (Final pipeline fixes, summary.sh corrections, and execution flow update)
+
 
 Each Python script explicitly calls the next stage, meaning running the entrypoint triggers the entire downstream pipeline.
 
